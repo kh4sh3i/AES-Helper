@@ -61,3 +61,48 @@ Once loaded, you should see a new tab in Burp called **AES Helper**.
 - Jython Standalone (2.7+)
 
 
+---
+
+# Chrome DevTools console snippet
+* TIPS : remove length 16, 24 for better result to find IV and AES Key in javascript file
+
+```javascript
+(function () {
+  const seen = new Set(); // track unique strings
+  const validLengths = new Set([16, 24, 32]);
+
+  function scanScript(code, sourceName) {
+    const lines = code.split(/\r?\n/);
+    const regex = /"((?:\\.|[^"\\])*)"/g; // match only double-quoted strings
+
+    lines.forEach((line, idx) => {
+      for (const match of line.matchAll(regex)) {
+        const raw = match[1];
+        const value = raw
+          .replace(/\\n/g, '\n')
+          .replace(/\\r/g, '\r')
+          .replace(/\\t/g, '\t')
+          .replace(/\\"/g, '"')
+          .replace(/\\\\/g, '\\');
+        if (validLengths.has(value.length) && !seen.has(value)) {
+          seen.add(value);
+          console.log(`${sourceName}:${idx + 1}: "${value}" (length=${value.length})`);
+        }
+      }
+    });
+  }
+
+  document.querySelectorAll("script").forEach((s, i) => {
+    if (s.src) {
+      // external script (blocked if CORS not allowed)
+      fetch(s.src).then(r => r.text()).then(code => {
+        scanScript(code, s.src);
+      }).catch(() => {
+        console.warn("Skipped (CORS blocked):", s.src);
+      });
+    } else if (s.textContent.trim()) {
+      scanScript(s.textContent, `inline-script-${i+1}`);
+    }
+  });
+})();
+```
