@@ -1,3 +1,14 @@
+<h1 align="center">
+  <a><img src="/img/logo.svg" alt="" width="200px"></a>
+  <br>
+  <img src="https://img.shields.io/badge/PRs-welcome-blue">
+  <img src="https://img.shields.io/github/last-commit/kh4sh3i/AES-Helper">
+  <img src="https://img.shields.io/github/commit-activity/m/kh4sh3i/AES-Helper">
+  <a href="https://twitter.com/intent/follow?screen_name=kh4sh3i_"><img src="https://img.shields.io/twitter/follow/kh4sh3i_?style=flat&logo=twitter"></a>
+  <a href="https://github.com/kh4sh3i"><img src="https://img.shields.io/github/stars/kh4sh3i?style=flat&logo=github"></a>
+</h1>
+
+
 # AES Helper
 This repository contains a **Burp Suite extension (Jython)** that provides AES encryption and decryption utilities. It is designed to help penetration testers and security researchers work with AES-encrypted payloads directly inside Burp.
 
