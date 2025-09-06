@@ -1,9 +1,4 @@
 # AES Helper
-Burp Extension to manipulate AES encrypted payloads
-
-
-# Burp AES Encrypt/Decrypt Extension
-
 This repository contains a **Burp Suite extension (Jython)** that provides AES encryption and decryption utilities. It is designed to help penetration testers and security researchers work with AES-encrypted payloads directly inside Burp.
 
 ---
